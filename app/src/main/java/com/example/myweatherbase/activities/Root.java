@@ -23,6 +23,9 @@ class Weather implements Serializable{
     public String main;
     public String description;
     public String icon;
+    public String getDescription() {
+        return description;
+    }
 }
 
 class Clouds implements Serializable{
@@ -54,6 +57,9 @@ class List implements Serializable{
     public Sys sys;
     public String dt_txt;
     public Rain rain;
+    public ArrayList<Weather> getWeather() {
+        return weather;
+    }
 }
 
 class Coord implements Serializable{
@@ -70,6 +76,9 @@ class City implements Serializable {
     public int timezone;
     public int sunrise;
     public int sunset;
+    public String getName() {
+        return name;
+    }
 }
 
 public class Root implements Serializable {
@@ -81,6 +90,13 @@ public class Root implements Serializable {
 
     public String getCity(){
         return city.name;
+    }
+    public int getTimeZone(){
+        return city.timezone;
+    }
+
+    public ArrayList<List> getList() {
+        return list;
     }
 }
 

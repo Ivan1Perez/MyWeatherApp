@@ -38,6 +38,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 //        holder.oficio.setText(p.getNombre());
 //        holder.imagen.setImageResource(p.getImage());
 
+
     }
 
     @Override
