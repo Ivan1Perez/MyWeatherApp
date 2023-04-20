@@ -60,6 +60,9 @@ class List implements Serializable{
     public ArrayList<Weather> getWeather() {
         return weather;
     }
+    public String getDt_txt(){
+        return dt_txt;
+    }
 }
 
 class Coord implements Serializable{
