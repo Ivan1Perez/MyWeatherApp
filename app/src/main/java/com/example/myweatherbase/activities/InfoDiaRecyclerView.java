@@ -43,7 +43,8 @@ public class InfoDiaRecyclerView extends RecyclerView.Adapter<InfoDiaRecyclerVie
         String estadoCieloCapitalizado = estadoCielo.substring(0, 1).toUpperCase() + estadoCielo.substring(1);
         String fechaCompleta = root.list.get(position).getDt_txt();
         String horaMinutos = fechaCompleta.substring(11, 16);
-        ImageDownloader.downloadImage(Parameters.ICON_URL_PRE + root.getList().get(position).getWeather().get(0).icon + Parameters.ICON_URL_POST, holder.imageView);
+
+        ImageDownloader.downloadImage(Parameters.ICON_URL_PRE + root.list.get(position).weather.get(0).icon + Parameters.ICON_URL_POST, holder.imageView);
 
         Date date = new Date((long)root.list.get(position).dt*1000);
         SimpleDateFormat dateDayOfWeek = new SimpleDateFormat("dd MMMM");
