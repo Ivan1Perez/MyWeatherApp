@@ -1,5 +1,6 @@
 package com.example.myweatherbase.activities.model;
 
+import com.example.myweatherbase.R;
 import com.example.myweatherbase.activities.SavedCity;
 
 import java.util.ArrayList;
@@ -15,9 +16,10 @@ public class CityRepository {
     private CityRepository(){
         savedCities = new ArrayList<>();
 
-        savedCities.add(new SavedCity("Valencia", "Spain"));
-        savedCities.add(new SavedCity("Madrid", "Spain"));
-        savedCities.add(new SavedCity("Barcelona", "Spain"));
+        savedCities.add(new SavedCity("Saved cities", "", R.drawable.defaultcity1));
+        savedCities.add(new SavedCity("Valencia", "Spain", R.drawable.valencia));
+        savedCities.add(new SavedCity("Madrid", "Spain", R.drawable.madrid));
+        savedCities.add(new SavedCity("Barcelona", "Spain", R.drawable.barcelona));
     }
 
     public static CityRepository getInstance(){

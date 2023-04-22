@@ -4,10 +4,13 @@ public class SavedCity {
 
     private String cityName;
     private String countryName;
+    private int image;
 
-    public SavedCity(String cityName, String countryName) {
+
+    public SavedCity(String cityName, String countryName, int image) {
         this.cityName = cityName;
         this.countryName = countryName;
+        this.image = image;
     }
 
     public String getCityName() {
@@ -16,5 +19,9 @@ public class SavedCity {
 
     public String getCountryName() {
         return countryName;
+    }
+
+    public int getImage() {
+        return image;
     }
 }
