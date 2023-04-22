@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +28,7 @@ public class InitialActivity extends AppCompatActivity {
     private TextInputEditText tiSelectCity;
     private TextView selectCityImg;
     private Spinner spinner;
-    private Button forecast;
+    private Button forecastButton;
 
 
     @Override
@@ -37,7 +38,7 @@ public class InitialActivity extends AppCompatActivity {
 
         tiSelectCity = findViewById(R.id.tISelectCity);
         spinner = findViewById(R.id.spinner);
-        forecast = findViewById(R.id.buttonForecast);
+        forecastButton = findViewById(R.id.buttonForecast);
         selectCityImg = findViewById(R.id.selecCityImg);
 
         ArrayAdapter<SavedCity> myAdapter = new ArrayAdapter<SavedCity>(this,android.R.layout.simple_spinner_item, CityRepository.getInstance().getAll()){
@@ -58,7 +59,7 @@ public class InitialActivity extends AppCompatActivity {
                 TextView textView = (TextView) super.getDropDownView(position, convertView, parent);
                 SavedCity savedCity = getItem(position);
                 if(savedCity.getCityName().equals("Saved cities")){
-                    textView.setText("");
+                    textView.setText("...");
                 }else{
                     textView.setText(savedCity.getCityName() + ", " + savedCity.getCountryName());
                 }
@@ -75,7 +76,7 @@ public class InitialActivity extends AppCompatActivity {
                 SavedCity selectedCity = (SavedCity) adapterView.getItemAtPosition(i);
                 selectCityImg.setBackgroundResource(selectedCity.getImage());
                 if(selectedCity.getCityName().equals("Saved cities")){
-                    selectCityImg.setText("");
+                    selectCityImg.setText("Select a city");
                 }else{
                     selectCityImg.setText(selectedCity.getCityName());
                 }
@@ -85,6 +86,20 @@ public class InitialActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
+        });
+
+        forecastButton.setOnClickListener(view -> {
+            String cityName = "";
+
+            if(tiSelectCity.getText()!=null){
+                cityName = tiSelectCity.getText().toString();
+
+            }
+
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("cityName", cityName);
+            startActivity(intent);
+
         });
 
     }

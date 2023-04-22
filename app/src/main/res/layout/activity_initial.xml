@@ -24,6 +24,10 @@
             android:textAlignment="center"
             android:textColor="#FFFFFF"
             android:textSize="48sp"
+            android:shadowColor="#000000"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="10"
             tools:ignore="RtlCompat" />
 
         <LinearLayout
@@ -40,7 +44,7 @@
                     android:id="@+id/tISelectCity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Select city" />
+                    android:hint="Search city" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Spinner
