@@ -5,12 +5,13 @@ public class SavedCity {
     private String cityName;
     private String countryName;
     private int image;
+    private String locationPath;
 
-
-    public SavedCity(String cityName, String countryName, int image) {
+    public SavedCity(String cityName, String countryName, int image, String locationPath) {
         this.cityName = cityName;
         this.countryName = countryName;
         this.image = image;
+        this.locationPath = locationPath;
     }
 
     public String getCityName() {
@@ -23,5 +24,9 @@ public class SavedCity {
 
     public int getImage() {
         return image;
+    }
+
+    public String getLocationPath() {
+        return locationPath;
     }
 }

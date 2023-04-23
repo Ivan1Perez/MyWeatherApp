@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myweatherbase.R;
@@ -56,6 +57,12 @@ public class InfoDiaRecyclerView extends RecyclerView.Adapter<InfoDiaRecyclerVie
         holder.tvTemp.setText("Temp: "+((String.valueOf(root.getList().get(position).main.temp).length()>=3)?String.valueOf(root.getList().get(position).main.temp).substring(0,2):root.getList().get(position).main.temp)+"º");
         holder.tvMin.setText("Min: "+((String.valueOf(root.getList().get(position).main.temp_min).length()>=3)?String.valueOf(root.getList().get(position).main.temp_min).substring(0,2):root.getList().get(position).main.temp_min)+"º");
         holder.tvMax.setText("Max: "+((String.valueOf(root.getList().get(position).main.temp_max).length()>=3)?String.valueOf(root.getList().get(position).main.temp_max).substring(0,2):root.getList().get(position).main.temp_max)+"º");
+
+        if(position%2==0){
+            holder.itemView.setBackgroundColor(ContextCompat.getColor(inflater.getContext(), R.color.gray));
+        } else {
+            holder.itemView.setBackgroundColor(ContextCompat.getColor(inflater.getContext(), R.color.white));
+        }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

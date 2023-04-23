@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myweatherbase.R;
 import com.example.myweatherbase.activities.model.CityRepository;
@@ -29,6 +30,7 @@ public class InitialActivity extends AppCompatActivity {
     private TextView selectCityImg;
     private Spinner spinner;
     private Button forecastButton;
+    private String locationPath;
 
 
     @Override
@@ -40,6 +42,7 @@ public class InitialActivity extends AppCompatActivity {
         spinner = findViewById(R.id.spinner);
         forecastButton = findViewById(R.id.buttonForecast);
         selectCityImg = findViewById(R.id.selecCityImg);
+        locationPath = "";
 
         ArrayAdapter<SavedCity> myAdapter = new ArrayAdapter<SavedCity>(this,android.R.layout.simple_spinner_item, CityRepository.getInstance().getAll()){
             @Override
@@ -77,8 +80,10 @@ public class InitialActivity extends AppCompatActivity {
                 selectCityImg.setBackgroundResource(selectedCity.getImage());
                 if(selectedCity.getCityName().equals("Saved cities")){
                     selectCityImg.setText("Select a city");
+                    locationPath = "";
                 }else{
                     selectCityImg.setText(selectedCity.getCityName());
+                    locationPath = selectedCity.getLocationPath();
                 }
             }
 
@@ -91,14 +96,18 @@ public class InitialActivity extends AppCompatActivity {
         forecastButton.setOnClickListener(view -> {
             String cityName = "";
 
-            if(tiSelectCity.getText()!=null){
-                cityName = tiSelectCity.getText().toString();
+            if(locationPath.length()!=0){
+                if(tiSelectCity.getText()!=null){
+                    cityName = tiSelectCity.getText().toString();
+                }
 
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.putExtra("cityNameOnSearch", cityName);
+                intent.putExtra("locationPath", locationPath);
+                startActivity(intent);
+            }else{
+                Toast.makeText(InitialActivity.this, "Select a city", Toast.LENGTH_SHORT).show();
             }
-
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("cityName", cityName);
-            startActivity(intent);
 
         });
 

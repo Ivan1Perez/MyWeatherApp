@@ -16,10 +16,12 @@ public class CityRepository {
     private CityRepository(){
         savedCities = new ArrayList<>();
 
-        savedCities.add(new SavedCity("Saved cities", "", R.drawable.defaultcity1));
-        savedCities.add(new SavedCity("Valencia", "Spain", R.drawable.valencia));
-        savedCities.add(new SavedCity("Madrid", "Spain", R.drawable.madrid));
-        savedCities.add(new SavedCity("Barcelona", "Spain", R.drawable.barcelona));
+        savedCities.add(new SavedCity("Saved cities", "", R.drawable.defaultcity1, ""));
+        savedCities.add(new SavedCity("Valencia", "Spain", R.drawable.valencia, "&lat=39.4079343&lon=-0.5263244"));
+        savedCities.add(new SavedCity("Madrid", "Spain", R.drawable.madrid, "&lat=39.5877978&lon=-0.5382208"));
+        savedCities.add(new SavedCity("Barcelona", "Spain", R.drawable.barcelona, "&lat=39.5877978&lon=-0.5382208"));
+        savedCities.add(new SavedCity("IES La Vereda", "Spain", R.drawable.ieslavereda, "&lat=39.5877978&lon=-0.5382208"));
+        savedCities.add(new SavedCity("Reykjavík", "Iceland", R.drawable.reykjavik, "&lat=64.1333414&lon=-22.1477567"));
     }
 
     public static CityRepository getInstance(){
