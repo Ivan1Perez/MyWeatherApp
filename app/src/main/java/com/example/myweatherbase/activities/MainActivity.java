@@ -46,7 +46,12 @@ public class MainActivity extends BaseActivity implements CallInterface {
         String cityName = intent.getStringExtra("cityNameOnSearch");
         String locationPath = intent.getStringExtra("locationPath");
 
-        root = Connector.getConector().get(Root.class,locationPath);
+        if(cityName!=null && cityName.length()>0){
+            root = Connector.getConector().getCoordsByCityName(Root.class,cityName);
+        }else{
+            root = Connector.getConector().get(Root.class,locationPath);
+        }
+
     }
 
     // Una vez ya se ha realizado la llamada, ocultamos la barra de progreso y presentamos los datos

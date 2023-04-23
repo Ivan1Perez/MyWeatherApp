@@ -41,6 +41,14 @@ public class Connector{
         return null;
     }
 
+    public <T> T getCoordsByCityName(Class<T> clazz, String cityName){
+        String url = Parameters.URL_CITY_NAME_PRE + cityName + Parameters.URL_CITY_NAME_POST;
+        String jsonResponse = callMethodsObject.get(url);
+        if(jsonResponse != null)
+            return conversor.fromJson(jsonResponse, clazz);
+        return null;
+    }
+
     public <T> T post(Class<T> clazz, T data, String path){
         String url = Parameters.URL + Parameters.URL_OPTIONS + path;
         String jsonObject = conversor.toJson(data);

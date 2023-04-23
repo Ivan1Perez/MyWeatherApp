@@ -112,19 +112,22 @@ public class InitialActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                if(locationPath.length()!=0){
-                    if(tiSelectCity.getText()!=null){
-                        cityName = tiSelectCity.getText().toString();
+                if(tiSelectCity.getText()==null || tiSelectCity.length()==0){
+                    if(locationPath.length()!=0){
+                        Intent intent = new Intent(InitialActivity.this, MainActivity.class);
+                        intent.putExtra("cityNameOnSearch", cityName);
+                        intent.putExtra("locationPath", locationPath);
+                        startActivity(intent);
+                    }else{
+                        Toast.makeText(InitialActivity.this, "Select a city", Toast.LENGTH_SHORT).show();
                     }
-
+                }else{
+                    cityName = tiSelectCity.getText().toString();
                     Intent intent = new Intent(InitialActivity.this, MainActivity.class);
                     intent.putExtra("cityNameOnSearch", cityName);
                     intent.putExtra("locationPath", locationPath);
                     startActivity(intent);
-                }else{
-                    Toast.makeText(InitialActivity.this, "Select a city", Toast.LENGTH_SHORT).show();
                 }
-
             }
 
         });
