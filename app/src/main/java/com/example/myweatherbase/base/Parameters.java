@@ -9,6 +9,6 @@ public class Parameters {
     public final static String ICON_URL_PRE = "http://openweathermap.org/img/wn/";
     public static final String ICON_URL_POST = "@2x.png";
     public final static String URL_CITY_NAME_PRE = "http://api.openweathermap.org/geo/1.0/direct?q=";
-    public final static String URL_CITY_NAME_POST = "&limit=5&appid=" + API;
+    public final static String URL_CITY_NAME_POST = "&limit=1&appid=" + API;
 
 }

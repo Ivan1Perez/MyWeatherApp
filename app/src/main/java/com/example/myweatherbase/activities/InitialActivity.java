@@ -28,6 +28,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.myweatherbase.API.Connector;
 import com.example.myweatherbase.R;
 import com.example.myweatherbase.activities.model.CityRepository;
+import com.example.myweatherbase.base.BaseActivity;
 import com.example.myweatherbase.base.CallInterface;
 import com.example.myweatherbase.base.Parameters;
 import com.google.android.material.textfield.TextInputEditText;
@@ -38,7 +39,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class InitialActivity extends AppCompatActivity {
+public class InitialActivity extends BaseActivity {
+
+    private RootLatLonByName rootLatLonByName;
 
     private TextInputEditText tiSelectCity;
     private TextView selectCityImg;
@@ -98,6 +101,9 @@ public class InitialActivity extends AppCompatActivity {
                 }else{
                     selectCityImg.setText(selectedCity.getCityName());
                     locationPath = selectedCity.getLocationPath();
+                    Intent intent = new Intent(InitialActivity.this, MainActivity.class);
+                    intent.putExtra("locationPath", locationPath);
+                    startActivity(intent);
                 }
             }
 
@@ -112,21 +118,28 @@ public class InitialActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                if(tiSelectCity.getText()==null || tiSelectCity.length()==0){
-                    if(locationPath.length()!=0){
-                        Intent intent = new Intent(InitialActivity.this, MainActivity.class);
-                        intent.putExtra("cityNameOnSearch", cityName);
-                        intent.putExtra("locationPath", locationPath);
-                        startActivity(intent);
-                    }else{
-                        Toast.makeText(InitialActivity.this, "Select a city", Toast.LENGTH_SHORT).show();
-                    }
+                if(tiSelectCity.length()!=0){
+                    showProgress();
+                    executeCall(new CallInterface() {
+                        @Override
+                        public void doInBackground() {
+                            rootLatLonByName = Connector.getConector().getCoordsByCityName(RootLatLonByName.class,cityName);
+                        }
+
+                        @Override
+                        public void doInUI() {
+                            if(rootLatLonByName!=null){
+                                Intent intent = new Intent(InitialActivity.this, MainActivity.class);
+                                intent.putExtra("cityNameOnSearch", cityName);
+                                intent.putExtra("lat", rootLatLonByName.lat);
+                                intent.putExtra("lon", rootLatLonByName.lon);
+                                startActivity(intent);
+                            }
+                        }
+                    });
+
                 }else{
-                    cityName = tiSelectCity.getText().toString();
-                    Intent intent = new Intent(InitialActivity.this, MainActivity.class);
-                    intent.putExtra("cityNameOnSearch", cityName);
-                    intent.putExtra("locationPath", locationPath);
-                    startActivity(intent);
+                    Toast.makeText(InitialActivity.this, "Select a city", Toast.LENGTH_SHORT).show();
                 }
             }
 

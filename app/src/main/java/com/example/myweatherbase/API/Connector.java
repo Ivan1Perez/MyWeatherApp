@@ -36,16 +36,32 @@ public class Connector{
     public <T> T get(Class<T> clazz, String path){
         String url = Parameters.URL + Parameters.URL_OPTIONS + path;
         String jsonResponse = callMethodsObject.get(url);
-        if(jsonResponse != null)
-            return conversor.fromJson(jsonResponse, clazz);
+        String aux;
+        if(jsonResponse != null){
+            if(jsonResponse.charAt(0) == '['){
+                aux = jsonResponse.substring(1, jsonResponse.length()-1);
+            }else{
+                aux = jsonResponse;
+            }
+            return conversor.fromJson(aux, clazz);
+
+        }
         return null;
     }
 
-    public <T> T getCoordsByCityName(Class<T> clazz, String cityName){
-        String url = Parameters.URL_CITY_NAME_PRE + cityName + Parameters.URL_CITY_NAME_POST;
+    public <T> T getCoordsByCityName(Class<T> clazz, String path){
+        String url = Parameters.URL_CITY_NAME_PRE + path + Parameters.URL_CITY_NAME_POST;
         String jsonResponse = callMethodsObject.get(url);
-        if(jsonResponse != null)
-            return conversor.fromJson(jsonResponse, clazz);
+        String aux;
+        if(jsonResponse != null){
+            if(jsonResponse.charAt(0) == '['){
+                aux = jsonResponse.substring(1, jsonResponse.length()-1);
+            }else{
+                aux = jsonResponse;
+            }
+            return conversor.fromJson(aux, clazz);
+
+        }
         return null;
     }
 

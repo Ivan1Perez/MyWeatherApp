@@ -17,6 +17,8 @@ import com.example.myweatherbase.base.CallInterface;
 
 public class MainActivity extends BaseActivity implements CallInterface {
 
+    private RootLatLonByName rootLatLonByName;
+
     private Root root;
     private RecyclerView recyclerView;
 
@@ -47,7 +49,7 @@ public class MainActivity extends BaseActivity implements CallInterface {
         String locationPath = intent.getStringExtra("locationPath");
 
         if(cityName!=null && cityName.length()>0){
-            root = Connector.getConector().getCoordsByCityName(Root.class,cityName);
+            rootLatLonByName = Connector.getConector().getCoordsByCityName(RootLatLonByName.class,cityName);
         }else{
             root = Connector.getConector().get(Root.class,locationPath);
         }
