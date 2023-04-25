@@ -1,43 +1,24 @@
 package com.example.myweatherbase.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.myweatherbase.API.Connector;
 import com.example.myweatherbase.R;
 import com.example.myweatherbase.activities.model.CityRepository;
 import com.example.myweatherbase.base.BaseActivity;
 import com.example.myweatherbase.base.CallInterface;
+import com.example.myweatherbase.base.ImageDownloader;
 import com.example.myweatherbase.base.Parameters;
 import com.google.android.material.textfield.TextInputEditText;
-
-import org.json.JSONException;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 public class InitialActivity extends BaseActivity {
 
@@ -66,11 +47,11 @@ public class InitialActivity extends BaseActivity {
         stateName = "";
 
 
-        ArrayAdapter<SavedCity> myAdapter = new ArrayAdapter<SavedCity>(this,android.R.layout.simple_spinner_item, CityRepository.getInstance().getAll()){
+        ArrayAdapter<Ciudad> myAdapter = new ArrayAdapter<Ciudad>(this,android.R.layout.simple_spinner_item, CityRepository.getInstance().getAll()){
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 TextView textView = (TextView) super.getView(position, convertView, parent);
-                SavedCity savedCity = getItem(position);
+                Ciudad savedCity = getItem(position);
                 if(savedCity.getCityName().equals("Saved cities")){
                     textView.setText(savedCity.getCityName());
                 }else{
@@ -82,7 +63,7 @@ public class InitialActivity extends BaseActivity {
             @Override
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                 TextView textView = (TextView) super.getDropDownView(position, convertView, parent);
-                SavedCity savedCity = getItem(position);
+                Ciudad savedCity = getItem(position);
                 if(savedCity.getCityName().equals("Saved cities")){
                     textView.setText("...");
                 }else{
@@ -98,7 +79,8 @@ public class InitialActivity extends BaseActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 adapterView.getItemAtPosition(i);
-                SavedCity selectedCity = (SavedCity) adapterView.getItemAtPosition(i);
+                Ciudad selectedCity = (Ciudad) adapterView.getItemAtPosition(i);
+                ImageDownloader.downloadImage("https://www.spain.info/export/sites/segtur/.content/imagenes/cabeceras-grandes/valencia/ciudad-artes-ciencias-valencia-c-luca-bravo-u-UyUjtbu5vj4.jpg_604889389.jpg", selectCityImg.getBackground());
                 selectCityImg.setBackgroundResource(selectedCity.getImage());
                 if(selectedCity.getCityName().equals("Saved cities")){
                     selectCityImg.setText("Select a city");

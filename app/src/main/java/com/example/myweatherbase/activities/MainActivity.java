@@ -4,8 +4,10 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,7 +17,7 @@ import com.example.myweatherbase.R;
 import com.example.myweatherbase.base.BaseActivity;
 import com.example.myweatherbase.base.CallInterface;
 
-public class MainActivity extends BaseActivity implements CallInterface {
+public class MainActivity extends BaseActivity implements CallInterface, View.OnClickListener {
 
     private String locationName;
     private String stateName;
@@ -57,7 +59,7 @@ public class MainActivity extends BaseActivity implements CallInterface {
     public void doInUI() {
         hideProgress();
 
-        InfoDiaRecyclerView myRecyclerViewAdapter = new InfoDiaRecyclerView(this, root, locationName, stateName);
+        InfoDiaRecyclerView myRecyclerViewAdapter = new InfoDiaRecyclerView(this, root, locationName, stateName,this);
         recyclerView.setAdapter(myRecyclerViewAdapter);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -66,4 +68,8 @@ public class MainActivity extends BaseActivity implements CallInterface {
     }
 
 
+    @Override
+    public void onClick(View view) {
+        Toast.makeText(getApplicationContext(),"Has clicado",Toast.LENGTH_SHORT).show();
+    }
 }

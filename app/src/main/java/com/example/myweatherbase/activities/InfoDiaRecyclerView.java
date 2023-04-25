@@ -26,8 +26,11 @@ public class InfoDiaRecyclerView extends RecyclerView.Adapter<InfoDiaRecyclerVie
     private Root root;
     private final LayoutInflater inflater;
 
-    public InfoDiaRecyclerView(Context context, Root root, String locationName, String stateName) {
+    private View.OnClickListener listener;
+
+    public InfoDiaRecyclerView(Context context, Root root, String locationName, String stateName, View.OnClickListener listener) {
         this.root = root;
+        this.listener = listener;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.locationName = locationName;
         this.stateName = stateName;
@@ -37,6 +40,7 @@ public class InfoDiaRecyclerView extends RecyclerView.Adapter<InfoDiaRecyclerVie
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.simple_element, parent, false);
+        view.setOnClickListener(listener);
         return new ViewHolder(view);
     }
 
@@ -73,29 +77,30 @@ public class InfoDiaRecyclerView extends RecyclerView.Adapter<InfoDiaRecyclerVie
             holder.itemView.setBackgroundColor(ContextCompat.getColor(inflater.getContext(), R.color.white));
         }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), ForecastClickedActivity.class);
-                intent.putExtra("fecha", holder.tvFecha.getText().toString());
-                intent.putExtra("dia", holder.tvDia.getText().toString());
-                intent.putExtra("estadoCielo", holder.tvEstadoCielo.getText().toString());
-                intent.putExtra("hora", holder.tvHora.getText().toString());
-                intent.putExtra("temp", holder.tvTemp.getText().toString());
-                intent.putExtra("min", holder.tvMin.getText().toString());
-                intent.putExtra("max", holder.tvMax.getText().toString());
-                intent.putExtra("nubosidad", nubosidad);
-                intent.putExtra("humedad", humedad);
-                intent.putExtra("presionAt", presionAt);
-                intent.putExtra("viento", viento);
-                intent.putExtra("visibilidad", visibilidad);
-                intent.putExtra("variacionTemp", variacionTemp);
-                intent.putExtra("weatherIcon", weatherIcon);
-                intent.putExtra("locationName", locationName);
-                intent.putExtra("stateName", stateName);
-                view.getContext().startActivity(intent);
-            }
-        });
+
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(view.getContext(), ForecastClickedActivity.class);
+//                intent.putExtra("fecha", holder.tvFecha.getText().toString());
+//                intent.putExtra("dia", holder.tvDia.getText().toString());
+//                intent.putExtra("estadoCielo", holder.tvEstadoCielo.getText().toString());
+//                intent.putExtra("hora", holder.tvHora.getText().toString());
+//                intent.putExtra("temp", holder.tvTemp.getText().toString());
+//                intent.putExtra("min", holder.tvMin.getText().toString());
+//                intent.putExtra("max", holder.tvMax.getText().toString());
+//                intent.putExtra("nubosidad", nubosidad);
+//                intent.putExtra("humedad", humedad);
+//                intent.putExtra("presionAt", presionAt);
+//                intent.putExtra("viento", viento);
+//                intent.putExtra("visibilidad", visibilidad);
+//                intent.putExtra("variacionTemp", variacionTemp);
+//                intent.putExtra("weatherIcon", weatherIcon);
+//                intent.putExtra("locationName", locationName);
+//                intent.putExtra("stateName", stateName);
+//                view.getContext().startActivity(intent);
+//            }
+//        });
     }
 
     @Override

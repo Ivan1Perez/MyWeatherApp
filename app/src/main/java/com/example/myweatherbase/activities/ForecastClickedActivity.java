@@ -22,7 +22,7 @@ import com.example.myweatherbase.base.CallInterface;
 import com.example.myweatherbase.base.ImageDownloader;
 import com.example.myweatherbase.base.Parameters;
 
-public class ForecastClickedActivity extends BaseActivity implements CallInterface {
+public class ForecastClickedActivity extends BaseActivity  {
 
     private ImageView imageView;
     private TextView tvCityTitle;
@@ -62,46 +62,46 @@ public class ForecastClickedActivity extends BaseActivity implements CallInterfa
         pressureInfo = findViewById(R.id.pressureInfo);
         tempVariationInfo = findViewById(R.id.tempVariationInfo);
 
-        showProgress();
-        executeCall(this);
+//        showProgress();
+//        executeCall(this);
     }
 
-    @Override
-    public void doInBackground() {
-        Intent intent = getIntent();
-        String fecha = intent.getStringExtra("fecha");
-        String dia = intent.getStringExtra("dia");
-        String estadoCielo = intent.getStringExtra("estadoCielo");
-        String hora = intent.getStringExtra("hora");
-        String temp = intent.getStringExtra("temp");
-        String min = intent.getStringExtra("min");
-        String max = intent.getStringExtra("max");
-        String nubosidad = intent.getStringExtra("nubosidad");
-        String humedad = intent.getStringExtra("humedad");
-        String presionAt = intent.getStringExtra("presionAt");
-        String viento = intent.getStringExtra("viento");
-        String visibilidad = intent.getStringExtra("visibilidad");
-        String variacionTemp = intent.getStringExtra("variacionTemp");
-        String weatherIcon = intent.getStringExtra("weatherIcon");
-        String stateName = intent.getStringExtra("stateName");
-
-
-
-    }
-
-    @Override
-    public void doInUI() {
-        hideProgress();
-
-        Intent intent = getIntent();
-        String weatherIcon = intent.getStringExtra("weatherIcon");
-        String locationName = intent.getStringExtra("locationName");
-
-        tvCityTitle.setText(locationName);
-
-//        ImageDownloader.downloadImage(Parameters.ICON_URL_PRE + weatherIcon + Parameters.ICON_URL_POST, imageView);
-
-
-    }
+//    @Override
+//    public void doInBackground() {
+//        Intent intent = getIntent();
+//        String fecha = intent.getStringExtra("fecha");
+//        String dia = intent.getStringExtra("dia");
+//        String estadoCielo = intent.getStringExtra("estadoCielo");
+//        String hora = intent.getStringExtra("hora");
+//        String temp = intent.getStringExtra("temp");
+//        String min = intent.getStringExtra("min");
+//        String max = intent.getStringExtra("max");
+//        String nubosidad = intent.getStringExtra("nubosidad");
+//        String humedad = intent.getStringExtra("humedad");
+//        String presionAt = intent.getStringExtra("presionAt");
+//        String viento = intent.getStringExtra("viento");
+//        String visibilidad = intent.getStringExtra("visibilidad");
+//        String variacionTemp = intent.getStringExtra("variacionTemp");
+//        String weatherIcon = intent.getStringExtra("weatherIcon");
+//        String stateName = intent.getStringExtra("stateName");
+//
+//
+//
+//    }
+//
+//    @Override
+//    public void doInUI() {
+//        hideProgress();
+//
+////        Intent intent = getIntent();
+////        String weatherIcon = intent.getStringExtra("weatherIcon");
+////        String locationName = intent.getStringExtra("locationName");
+////
+////        tvCityTitle.setText(locationName);
+//
+////        ImageDownloader.downloadImage(Parameters.ICON_URL_PRE + weatherIcon + Parameters.ICON_URL_POST, imageView);
+//
+//
+//    }
 
 }

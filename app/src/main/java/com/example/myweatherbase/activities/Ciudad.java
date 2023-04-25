@@ -1,13 +1,13 @@
 package com.example.myweatherbase.activities;
 
-public class SavedCity {
+public class Ciudad {
 
     private String cityName;
     private String countryName;
-    private int image;
+    private String image;
     private String locationPath;
 
-    public SavedCity(String cityName, String countryName, int image, String locationPath) {
+    public Ciudad(String cityName, String countryName, String image, String locationPath) {
         this.cityName = cityName;
         this.countryName = countryName;
         this.image = image;
@@ -22,7 +22,7 @@ public class SavedCity {
         return countryName;
     }
 
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 
