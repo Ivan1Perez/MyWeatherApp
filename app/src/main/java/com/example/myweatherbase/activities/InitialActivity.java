@@ -80,8 +80,7 @@ public class InitialActivity extends BaseActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 adapterView.getItemAtPosition(i);
                 Ciudad selectedCity = (Ciudad) adapterView.getItemAtPosition(i);
-                ImageDownloader.downloadImage("https://www.spain.info/export/sites/segtur/.content/imagenes/cabeceras-grandes/valencia/ciudad-artes-ciencias-valencia-c-luca-bravo-u-UyUjtbu5vj4.jpg_604889389.jpg", selectCityImg.getBackground());
-                selectCityImg.setBackgroundResource(selectedCity.getImage());
+//                selectCityImg.setBackgroundResource(selectedCity.getImage());
                 if(selectedCity.getCityName().equals("Saved cities")){
                     selectCityImg.setText("Select a city");
                     locationPath = "";
