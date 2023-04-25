@@ -21,14 +21,16 @@ import java.util.Date;
 
 public class InfoDiaRecyclerView extends RecyclerView.Adapter<InfoDiaRecyclerView.ViewHolder> {
 
-//    private InfoDiaRepository repository;
+    private String locationName;
+    private String stateName;
     private Root root;
     private final LayoutInflater inflater;
 
-    public InfoDiaRecyclerView(Context context, Root root) {
-//        repository = InfoDiaRepository.getInstance();
+    public InfoDiaRecyclerView(Context context, Root root, String locationName, String stateName) {
         this.root = root;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.locationName = locationName;
+        this.stateName = stateName;
     }
 
     @NonNull
@@ -44,8 +46,15 @@ public class InfoDiaRecyclerView extends RecyclerView.Adapter<InfoDiaRecyclerVie
         String estadoCieloCapitalizado = estadoCielo.substring(0, 1).toUpperCase() + estadoCielo.substring(1);
         String fechaCompleta = root.list.get(position).getDt_txt();
         String horaMinutos = fechaCompleta.substring(11, 16);
+        String nubosidad = root.list.get(position).clouds.all + "%";
+        String humedad = root.list.get(position).main.humidity + "%";
+        String presionAt = root.list.get(position).main.pressure + " hPa";
+        String viento = root.list.get(position).wind.speed + " km/h";
+        String visibilidad = root.list.get(position).visibility + " km";
+        String variacionTemp = root.list.get(position).main.temp_kf + "ºC/h";
+        String weatherIcon = root.list.get(position).weather.get(0).icon;
 
-        ImageDownloader.downloadImage(Parameters.ICON_URL_PRE + root.list.get(position).weather.get(0).icon + Parameters.ICON_URL_POST, holder.imageView);
+        ImageDownloader.downloadImage(Parameters.ICON_URL_PRE + weatherIcon + Parameters.ICON_URL_POST, holder.imageView);
 
         Date date = new Date((long)root.list.get(position).dt*1000);
         SimpleDateFormat dateDayOfWeek = new SimpleDateFormat("dd MMMM");
@@ -59,7 +68,7 @@ public class InfoDiaRecyclerView extends RecyclerView.Adapter<InfoDiaRecyclerVie
         holder.tvMax.setText("Max: "+((String.valueOf(root.getList().get(position).main.temp_max).length()>=3)?String.valueOf(root.getList().get(position).main.temp_max).substring(0,2):root.getList().get(position).main.temp_max)+"º");
 
         if(position%2==0){
-            holder.itemView.setBackgroundColor(ContextCompat.getColor(inflater.getContext(), R.color.gray));
+            holder.itemView.setBackgroundColor(ContextCompat.getColor(inflater.getContext(), R.color.lightblue));
         } else {
             holder.itemView.setBackgroundColor(ContextCompat.getColor(inflater.getContext(), R.color.white));
         }
@@ -75,6 +84,15 @@ public class InfoDiaRecyclerView extends RecyclerView.Adapter<InfoDiaRecyclerVie
                 intent.putExtra("temp", holder.tvTemp.getText().toString());
                 intent.putExtra("min", holder.tvMin.getText().toString());
                 intent.putExtra("max", holder.tvMax.getText().toString());
+                intent.putExtra("nubosidad", nubosidad);
+                intent.putExtra("humedad", humedad);
+                intent.putExtra("presionAt", presionAt);
+                intent.putExtra("viento", viento);
+                intent.putExtra("visibilidad", visibilidad);
+                intent.putExtra("variacionTemp", variacionTemp);
+                intent.putExtra("weatherIcon", weatherIcon);
+                intent.putExtra("locationName", locationName);
+                intent.putExtra("stateName", stateName);
                 view.getContext().startActivity(intent);
             }
         });

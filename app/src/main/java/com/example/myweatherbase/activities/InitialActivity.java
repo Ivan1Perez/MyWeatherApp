@@ -48,6 +48,8 @@ public class InitialActivity extends BaseActivity {
     private Spinner spinner;
     private Button forecastButton;
     private String locationPath;
+    private String locationName;
+    private String stateName;
 
 
     @Override
@@ -60,6 +62,9 @@ public class InitialActivity extends BaseActivity {
         forecastButton = findViewById(R.id.buttonForecast);
         selectCityImg = findViewById(R.id.selecCityImg);
         locationPath = "";
+        locationName = "";
+        stateName = "";
+
 
         ArrayAdapter<SavedCity> myAdapter = new ArrayAdapter<SavedCity>(this,android.R.layout.simple_spinner_item, CityRepository.getInstance().getAll()){
             @Override
@@ -101,7 +106,11 @@ public class InitialActivity extends BaseActivity {
                 }else{
                     selectCityImg.setText(selectedCity.getCityName());
                     locationPath = selectedCity.getLocationPath();
+                    locationName = selectedCity.getCityName() + "," + selectedCity.getCountryName();
+                    stateName = "";
                     Intent intent = new Intent(InitialActivity.this, MainActivity.class);
+                    intent.putExtra("locationName", locationName);
+                    intent.putExtra("stateName", stateName);
                     intent.putExtra("locationPath", locationPath);
                     startActivity(intent);
                 }
@@ -114,26 +123,34 @@ public class InitialActivity extends BaseActivity {
         });
 
         forecastButton.setOnClickListener(new View.OnClickListener() {
-            String cityName = "";
 
             @Override
             public void onClick(View v) {
-                if(tiSelectCity.length()!=0){
+                if(tiSelectCity.getText()!=null && tiSelectCity.getText().length()!=0){
                     showProgress();
                     executeCall(new CallInterface() {
                         @Override
                         public void doInBackground() {
-                            rootLatLonByName = Connector.getConector().getCoordsByCityName(RootLatLonByName.class,cityName);
+                            rootLatLonByName = Connector.getConector().getCoordsByCityName(RootLatLonByName.class,tiSelectCity.getText().toString());
                         }
 
                         @Override
                         public void doInUI() {
+                            hideProgress();
+
                             if(rootLatLonByName!=null){
+                                String locationName = rootLatLonByName.name + ", " + rootLatLonByName.country;
+                                String stateName = rootLatLonByName.state;
+                                String lat = "&lat=" + rootLatLonByName.lat;
+                                String lon = "&lon=" + rootLatLonByName.lon;
+                                locationPath = lat + lon;
                                 Intent intent = new Intent(InitialActivity.this, MainActivity.class);
-                                intent.putExtra("cityNameOnSearch", cityName);
-                                intent.putExtra("lat", rootLatLonByName.lat);
-                                intent.putExtra("lon", rootLatLonByName.lon);
+                                intent.putExtra("locationName", locationName);
+                                intent.putExtra("stateName", stateName);
+                                intent.putExtra("locationPath", locationPath);
                                 startActivity(intent);
+                            }else{
+                                Toast.makeText(InitialActivity.this, "Location not found", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
